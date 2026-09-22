@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Knowledge Assistant</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js/+esm",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+          "talkinghead": "https://cdn.jsdelivr.net/gh/met4citizen/TalkingHead@1.7/modules/talkinghead.mjs"
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Bella</p>
+          <h1>Smart Knowledge Assistant</h1>
+          <p class="intro">Ask Bella a question. She’ll answer it and read it aloud.</p>
+        </div>
+        <div class="status-actions">
+          <span id="status" class="status" data-state="busy" role="status">Bella is getting ready…</span>
+          <button id="status-action" class="status-action" type="button" hidden></button>
+        </div>
+      </section>
+
+      <section class="assistant-layout">
+        <div class="avatar-card">
+          <div id="avatar" aria-label="Bella, Smart Knowledge Assistant"></div>
+          <p id="avatar-message" class="avatar-message">Bella is getting ready…</p>
+        </div>
+        <section class="chat-card">
+          <form id="chat-form">
+            <label for="question">Ask Bella</label>
+            <div class="question-row">
+              <input id="question" maxlength="2000" placeholder="What would you like to know?" required />
+              <button id="ask-button" type="submit" disabled>Ask Bella</button>
+              <button id="stop-button" class="stop-button" type="button" hidden>Stop Bella</button>
+            </div>
+          </form>
+          <article>
+            <h2>Bella’s answer</h2>
+            <p id="answer"></p>
+          </article>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="/static/app.js?v=bella-groq-3"></script>
+  </body>
+</html>
