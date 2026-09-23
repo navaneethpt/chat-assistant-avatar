@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 from groq import AsyncGroq
 
-load_dotenv()
+load_dotenv("/home/navaneethpt/chat-assistant-avatar/.env")
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PUBLIC_DIR = PROJECT_ROOT / "public"
 GROQ_MODEL = "openai/gpt-oss-20b"
