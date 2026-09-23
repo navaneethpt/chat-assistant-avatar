@@ -1,4 +1,5 @@
 import os
+import logging
 from pathlib import Path
 from dotenv import load_dotenv
 from typing import Literal, Optional
@@ -9,6 +10,8 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from groq import AsyncGroq
+
+logger = logging.getLogger(__name__)
 
 load_dotenv("/home/navaneethpt/chat-assistant-avatar/.env")
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -85,7 +88,13 @@ async def chat(request: ChatRequest) -> ChatResponse:
         answer = completion.choices[0].message.content
     except HTTPException:
         raise
-    except Exception:
+    except Exception as error:
+        logger.error(
+            "Groq chat completion failed: %s: %s",
+            type(error).__name__,
+            error,
+            exc_info=True,
+        )
         raise HTTPException(
             status_code=502,
             detail="Bella is temporarily unavailable. Please try again.",

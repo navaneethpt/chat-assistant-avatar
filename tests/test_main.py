@@ -81,7 +81,7 @@ def test_chat_reports_missing_groq_key(monkeypatch):
     assert "GROQ_API_KEY" in response.json()["detail"]
 
 
-def test_chat_hides_groq_failures(monkeypatch):
+def test_chat_hides_groq_failures_and_logs_the_cause(monkeypatch, caplog):
     class FailingCompletions:
         async def create(self, **kwargs):
             raise RuntimeError("provider details must stay private")
@@ -97,6 +97,10 @@ def test_chat_hides_groq_failures(monkeypatch):
 
     assert response.status_code == 502
     assert response.json()["detail"] == "Bella is temporarily unavailable. Please try again."
+    assert (
+        "Groq chat completion failed: RuntimeError: provider details must stay private"
+        in caplog.text
+    )
 
 
 def test_chat_rejects_blank_messages():
