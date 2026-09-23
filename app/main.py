@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 from typing import Literal, Optional
 
 from fastapi import FastAPI, HTTPException
@@ -9,6 +10,7 @@ from pydantic import BaseModel, Field
 
 from groq import AsyncGroq
 
+load_dotenv()
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PUBLIC_DIR = PROJECT_ROOT / "public"
 GROQ_MODEL = "openai/gpt-oss-20b"
